@@ -910,7 +910,7 @@ public:
         npc_vengeful_shadeAI(Creature* creature) : ScriptedAI(creature)
         {
             me->SetControlled(true, UNIT_STATE_ROOT);
-            unroot_timer = 500;
+            unroot_timer = 1500;
             targetGUID.Clear();
         }
 
@@ -919,7 +919,7 @@ public:
 
         void Reset() override
         {
-            me->setAttackTimer(BASE_ATTACK, 2000);
+            me->setAttackTimer(BASE_ATTACK, 2500);
             me->AddAura(SPELL_VENGEFUL_BLAST_PASSIVE, me);
         }
 

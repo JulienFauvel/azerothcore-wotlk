@@ -429,7 +429,9 @@ public:
     {
         npc_big_oozeAI(Creature* creature) : ScriptedAI(creature), instance(creature->GetInstanceScript())
         {
+            me->SetControlled(true, UNIT_STATE_STUNNED);
             firstUpdate = true;
+            stun_timer = 1500;
             if (Creature* rotface = ObjectAccessor::GetCreature(*me, instance->GetGuidData(DATA_ROTFACE)))
                 rotface->AI()->JustSummoned(me);
         }
@@ -437,6 +439,7 @@ public:
         bool firstUpdate;
         EventMap events;
         InstanceScript* instance;
+        uint16 stun_timer;
 
         void IsSummonedBy(WorldObject* /*summoner*/) override
         {
@@ -459,6 +462,21 @@ public:
 
         void UpdateAI(uint32 diff) override
         {
+            if (stun_timer)
+            {
+                if (stun_timer <= diff)
+                {
+                    me->SetControlled(false, UNIT_STATE_STUNNED);
+                    me->SetInCombatWithZone();
+                    stun_timer = 0;
+                }
+                else
+                {
+                    stun_timer -= diff;
+                    return;
+                }
+            }
+
             if (firstUpdate)
             {
                 firstUpdate = false;

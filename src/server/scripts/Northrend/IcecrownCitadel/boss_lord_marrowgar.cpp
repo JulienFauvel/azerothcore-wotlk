@@ -114,9 +114,9 @@ public:
         me->SetReactState(REACT_AGGRESSIVE);
         _Reset();
         events.ScheduleEvent(EVENT_ENABLE_BONE_SLICE, 10s);
-        events.ScheduleEvent(EVENT_SPELL_BONE_SPIKE_GRAVEYARD, 10s, 15s);
+        events.ScheduleEvent(EVENT_SPELL_BONE_SPIKE_GRAVEYARD, 18s, 20s);
         events.ScheduleEvent(EVENT_SPELL_COLDFLAME, 5s);
-        events.ScheduleEvent(EVENT_WARN_BONE_STORM, 45s, 50s);
+        events.ScheduleEvent(EVENT_WARN_BONE_STORM, 45s);
         events.ScheduleEvent(EVENT_ENRAGE, 10min);
 
         _boneSlice = false;
@@ -176,7 +176,7 @@ public:
                     bool a = me->HasAura(SPELL_BONE_STORM);
                     if (IsHeroic() || !a)
                         me->CastSpell(me, SPELL_BONE_SPIKE_GRAVEYARD, a);
-                    events.Repeat(15s, 20s);
+                    events.Repeat(18s, 20s);
                 }
                 break;
             case EVENT_SPELL_COLDFLAME:
@@ -196,7 +196,7 @@ public:
                 me->SetReactState(REACT_PASSIVE); // to prevent chasing another target on UpdateVictim()
                 me->GetMotionMaster()->MoveIdle();
                 me->GetMotionMaster()->MovementExpired();
-                events.Repeat(90s, 95s);
+                events.Repeat(85s);
                 events.ScheduleEvent(EVENT_BEGIN_BONE_STORM, 3050ms);
                 break;
             case EVENT_BEGIN_BONE_STORM:
