@@ -1370,6 +1370,7 @@ public:
         npc_icc_blood_beastAI(Creature* creature) : ScriptedAI(creature)
         {
             me->SetControlled(true, UNIT_STATE_ROOT);
+            me->AddAura(SPELL_AURA_MOD_AOE_DAMAGE_AVOIDANCE, me);
             timer1 = 1500;
         }
 
